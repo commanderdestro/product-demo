@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Input from "./containers/Input";
 import Plans from "./containers/Plans";
 import "./style.css";
