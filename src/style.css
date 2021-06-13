@@ -6,6 +6,13 @@ body {
   height: 100vh;
 }
 
+.logo{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 125px;
+}
+
 .form {
   background-color: #15172b;
   border-radius: 20px;
@@ -145,4 +152,25 @@ body {
 
 .submit:active {
   background-color: #06b;
+}
+
+.searchResult{
+  background-color: #fff;
+  color: #65657b;
+  padding-left: 10px;
+  padding-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.searchResult:hover{
+  background-color: lightgray;
+}
+
+.searchContainer{
+  max-height: 200px;
+  border-radius: 12px;
+  border: 0;
+  overflow:auto;
 }

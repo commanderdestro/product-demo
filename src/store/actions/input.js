@@ -1,17 +1,16 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-proxy';
 
-export const acnt_fetch = accountName => {
-    return dispatch => {
-        dispatch(acnt_start());
-        axios.get('get-characters?accountName='+accountName)
-            .then(res => {
-                dispatch(
-                    acnt_success({...res.data}, accountName)
-                );
-            })
-            .catch(err => {
-                dispatch(acnt_fail(err));
-            });
+export const search_rep = search => {
+    return{
+        type: actionTypes.SEARCH_REP,
+        search: search
+    }
+};
+
+export const set_rorNum = (rorNum, repName) => {
+    return{
+        type: actionTypes.SET_RORNUM,
+        PUCTRORNumber: rorNum,
+        repName: repName
     }
 };
