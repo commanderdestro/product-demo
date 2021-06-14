@@ -3,7 +3,23 @@ import * as actionTypes from './actionTypes';
 export const search_rep = search => {
     return{
         type: actionTypes.SEARCH_REP,
-        search: search
+        searchRep: search
+    }
+};
+
+export const search_addy = (search, results) => {
+    return{
+        type: actionTypes.SEARCH_ADDY,
+        searchAddy: search,
+        addyResults: results
+    }
+};
+
+export const set_addy = (addy, esiid) => {
+    return{
+        type: actionTypes.SET_ADDY,
+        address: addy,
+        esiid: esiid
     }
 };
 
