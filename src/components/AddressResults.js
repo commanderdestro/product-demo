@@ -5,20 +5,23 @@ import * as actions from '../store/actions/index';
 const AddressResults = props => {
   return (
     <div id='addressSearchContainer' className='searchContainer'>
-      {
-        // Object.keys(reps).map((repName, i) => {
-        //     if(typeof props.searchAddy !== 'undefined' || typeof props.searchAddy !== 'undefined'){
-        //         if(repName.toLowerCase().includes(props.searchAddy.toLowerCase())){
-        //             return(
-        //                     <div key={i} value={reps[repName]} className="searchResult" onClick={() => {props.onRepClick(reps[repName], repName)}}>
-        //                         {repName}
-        //                     </div>
-        //             );
-        //         }
-        //     }
-        //     return false;
-        // })
-      }
+      {props.searchAdd !== 'undefined' &&
+        typeof props.searchAdd !== 'undefined' &&
+        props.addyResults.map((addy, i) => {
+          if (addy.addressLn1.toLowerCase().includes(props.searchAddy.toLowerCase())) {
+            return (
+              <div
+                key={i}
+                className='searchResult'
+                onClick={() => {
+                  props.onAddyClick(addy);
+                }}
+              >
+                {repName}
+              </div>
+            );
+          }
+        })}
     </div>
   );
 };
@@ -32,7 +35,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    addresses: state.addresses,
+    addyResults: state.addyResults,
+    searchAddy: state.searchAddy,
   };
 };
 

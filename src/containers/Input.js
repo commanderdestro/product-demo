@@ -42,7 +42,8 @@ class Input extends Component {
           reqKey: 'DunbarRocks',
         },
       });
-      this.props.onAddyInput(results);
+      const addressjson = JSON.parse(data.body.replace("\\", ""));
+      this.props.onAddyInput(addressjson, search);
     }
   };
 
@@ -73,7 +74,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onRepInput: search => dispatch(actions.search_rep(search)),
     onRepClick: (rorNum, repName) => dispatch(actions.set_rorNum(rorNum, repName)),
-    onAddyInput: search => dispatch(actions.search_addy(search)),
+    onAddyInput: (addyResults, searchAddy) => dispatch(actions.search_addy(addyResults, searchAddy)),
     onAddyClick: (addy, esiid) => dispatch(actions.set_addy(addy, esiid)),
   };
 };
@@ -85,6 +86,7 @@ const mapStateToProps = state => {
     repName: state.repName,
     esiid: state.esiid,
     searchAddy: state.searchAddy,
+    addyResults: state.addyResults
   };
 };
 

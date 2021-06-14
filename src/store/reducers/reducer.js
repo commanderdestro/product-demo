@@ -9,6 +9,8 @@ const initialState = {
     meter: 63057849,
     smartMeterConsent: "Y",
     repName: null,
+    searchAddy: null,
+    addyResults: null
 };
 
 const search_rep = (state, action) => {
