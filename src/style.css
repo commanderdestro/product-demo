@@ -162,6 +162,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  z-index: 100;
 }
 
 .searchResult:hover{
@@ -173,4 +174,5 @@ body {
   border-radius: 12px;
   border: 0;
   overflow:auto;
+  z-index: 99;
 }

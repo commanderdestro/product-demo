@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/index';
+import '../style.css';
 
 const AddressResults = props => {
   return (
     <div id='addressSearchContainer' className='searchContainer'>
-      {props.searchAdd !== 'undefined' &&
-        typeof props.searchAdd !== 'undefined' &&
+      {console.log(props.addyResults)}
+      {props.addyResults !== null &&
         props.addyResults.map((addy, i) => {
           if (addy.addressLn1.toLowerCase().includes(props.searchAddy.toLowerCase())) {
             return (
@@ -14,10 +15,10 @@ const AddressResults = props => {
                 key={i}
                 className='searchResult'
                 onClick={() => {
-                  props.onAddyClick(addy);
+                  props.onAddyClick(i);
                 }}
               >
-                {repName}
+                {addy.addressLn1}
               </div>
             );
           }

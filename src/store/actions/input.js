@@ -7,7 +7,7 @@ export const search_rep = search => {
     }
 };
 
-export const search_addy = (search, results) => {
+export const search_addy = (results, search) => {
     return{
         type: actionTypes.SEARCH_ADDY,
         searchAddy: search,
