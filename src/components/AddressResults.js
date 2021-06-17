@@ -7,21 +7,22 @@ const AddressResults = props => {
   return (
     <div id='addressSearchContainer' className='searchContainer'>
       {console.log(props.addyResults)}
-      {props.addyResults !== null &&
-        props.addyResults.map((addy, i) => {
-          if (addy.addressLn1.toLowerCase().includes(props.searchAddy.toLowerCase())) {
+      {props.addyResults !== [] && !props.addyResults.error &&
+        props.addyResults.map((premise, i) => {
+          if (premise.addressLn1.toLowerCase().includes(props.searchAddy.toLowerCase())) {
             return (
               <div
                 key={i}
                 className='searchResult'
                 onClick={() => {
-                  props.onAddyClick(i);
+                  props.onAddyClick(premise);
                 }}
               >
-                {addy.addressLn1}
+                {premise.addressLn1}, {premise.city}, {premise.zipcode}
               </div>
             );
           }
+          return false;
         })}
     </div>
   );
@@ -29,7 +30,6 @@ const AddressResults = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddyClick: addy => dispatch(actions.set_addy(addy)),
     onAddyInput: search => dispatch(actions.search_addy(search)),
   };
 };
@@ -38,6 +38,7 @@ const mapStateToProps = state => {
   return {
     addyResults: state.addyResults,
     searchAddy: state.searchAddy,
+    premise: state.premise,
   };
 };
 

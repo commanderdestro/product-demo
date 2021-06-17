@@ -25,7 +25,7 @@ const Form = props => {
           <label htmlFor='serviceAddress' className='placeholder'>
             Service Address
           </label>
-          <AddressResults id='addressResults' className='searchResult' />
+          <AddressResults id='addressResults' className='searchResult' onAddyClick={props.onAddyClick}/>
         </div>
         <div className='input-container ic2'>
           <input
@@ -49,11 +49,23 @@ const Form = props => {
             search={props.searchRep}
           />
         </div>
+        <div className='input-container ic2'>
+          <input
+            id='meter'
+            className='input'
+            type='text'
+            placeholder=' '
+          />
+          <div className='cut cut-short'></div>
+          <label htmlFor='meter' className='placeholder'>
+            Service Address Meter Number
+          </label>
+        </div>
         <div className='legal'>
           <input type='checkbox' className='checkbox' />I agree to some super-thorough legal
           agreement
         </div>
-        <button type='text' className='submit'>
+        <button type='text' className='submit' onClick={props.onSubmit}>
           submit
         </button>
       </div>

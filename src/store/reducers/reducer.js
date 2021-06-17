@@ -10,7 +10,8 @@ const initialState = {
     smartMeterConsent: "Y",
     repName: null,
     searchAddy: null,
-    addyResults: []
+    addyResults: [],
+    premise: {},
 };
 
 const search_rep = (state, action) => {
@@ -28,8 +29,7 @@ const set_rorNum = (state, action) => {
 
 const set_addy = (state, action) => {
     return updateObject(state, {
-        address: action.address,
-        esiid: action.esiid
+        premise: state.premise,
     });
 };
 

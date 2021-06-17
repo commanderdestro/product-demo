@@ -15,11 +15,10 @@ export const search_addy = (results, search) => {
     }
 };
 
-export const set_addy = (addy, esiid) => {
+export const set_addy = premise => {
     return{
         type: actionTypes.SET_ADDY,
-        address: addy,
-        esiid: esiid
+        premise: premise,
     }
 };
 

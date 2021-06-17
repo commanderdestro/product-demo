@@ -4,6 +4,7 @@ import * as actions from '../store/actions/index';
 import '../style.css';
 import Form from '../components/Form';
 import axios from 'axios';
+import logo from '../images/forge.png';
 
 class Input extends Component {
   constructor(props) {
@@ -43,15 +44,25 @@ class Input extends Component {
         },
       });
       const addressjson = JSON.parse(data.body.replace('\\', ''));
-      this.props.onAddyInput(addressjson, search);
+      if (addressjson.error) {
+        this.props.onAddyInput([], search);
+      } else {
+        this.props.onAddyInput(addressjson, search);
+      }
     }
   };
 
-  handleAddressClick = (addy, esiid) => {
-    document.getElementById('addy').value = addy;
+  handleAddressClick = premise => {
+    document.getElementById(
+      'serviceAddress'
+    ).value = `${premise.addressLn1}, ${premise.city}, ${premise.state} ${premise.zipCode}`;
     document.getElementById('addressSearchContainer').style.visibility = 'hidden';
-    this.props.onAddyClick(addy, esiid);
+    this.props.onAddyClick(premise);
   };
+
+  handleSubmit = () => {
+      //api call
+  }
 
   render() {
     return (
@@ -60,11 +71,13 @@ class Input extends Component {
           onClick={formData => this.handleSubmit(formData)}
           onChange={search => this.handleRepInput(search)}
           onAddressChange={search => this.handleAddressInput(search)}
-          onRepClick={(rorNum, repName) => this.handleRepClick(rorNum, repName)}
-          onAddyClick={(addy, esiid) => this.handleAddressClick(addy, esiid)}
+          onAddyClick={premise => this.handleAddressClick(premise)}
           searchRep={this.props.searchRep}
+          onRepClick={(rorNum, repName) => this.handleRepClick(rorNum, repName)}
           repName={this.props.repName}
+          onSubmit={() => this.handleSubmit()}
         />
+        <img src={logo} className='logo' alt='Energy Forge Logo' />
       </div>
     );
   }
@@ -74,8 +87,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onRepInput: search => dispatch(actions.search_rep(search)),
     onRepClick: (rorNum, repName) => dispatch(actions.set_rorNum(rorNum, repName)),
-    onAddyInput: (addyResults, searchAddy) =>
-      dispatch(actions.search_addy(addyResults, searchAddy)),
+    onAddyInput: (premise, search) => dispatch(actions.search_addy(premise, search)),
     onAddyClick: (addy, esiid) => dispatch(actions.set_addy(addy, esiid)),
   };
 };
