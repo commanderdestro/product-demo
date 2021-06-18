@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className='app'>
-        {false ? <Input /> : <ShapeBuilder />}
+          {false ? <Input /> : <ShapeBuilder />}
       </div>
     );
   }
