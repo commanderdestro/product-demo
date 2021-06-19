@@ -1,0 +1,87 @@
+body {
+  width: 100vw;
+}
+
+.topBar {
+  display: inline-flex;
+  width: 100vw;
+}
+
+.filterContainer {
+  display: flex;
+  padding: 35px 0 0 25px;
+  width: 700px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.seasonTile {
+  width: 70;
+  height: 70;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 2px 1px lightgray;
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin: 0px 15px 0px 15px;
+}
+
+.seasonTile:hover {
+  opacity: 1;
+  box-shadow: 5px 5px 2px 1px lightgray;
+}
+
+.greyed {
+  opacity: 0.3;
+  box-shadow: 3px 3px 1px 1px lightgray;
+}
+
+.day {
+  border: 1px solid lightgray;
+  color: #15172b;
+  font-family: sans-serif;
+  height: min-content;
+  padding: 3px;
+  border-radius: 5px;
+  width: 35px;
+  text-align: center;
+  margin: 15px 5px 5px 5px;
+}
+
+.dayGrey {
+  opacity: 0.3;
+}
+
+.day:hover, .shape:hover {
+  opacity: 1;
+}
+
+.selectedLabel {
+  border: 1px solid #FE1C41;
+}
+
+.shapeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-items: right;
+  align-items: right;
+  padding: 35px 25px 0 0;
+}
+
+.shape {
+  width: 150px;
+  height: 100px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 2px 1px lightgray;
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin: 0px 15px 0px 15px;
+}
+
+.arrow {
+  opacity: 0.5;
+}
+
+/*# sourceMappingURL=ShapeBuilder.css.map */

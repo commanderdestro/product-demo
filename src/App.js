@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Input from './containers/Input';
 import Plans from './containers/Plans';
 import ShapeBuilder from './containers/ShapeBuilder';
-import './style.css';
+import './style/style.css';
 
 class App extends Component {
   render() {

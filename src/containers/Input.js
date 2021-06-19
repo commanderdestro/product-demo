@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/index';
-import '../style.css';
+import '../style/style.css';
 import Form from '../components/Form';
 import axios from 'axios';
 import logo from '../images/forge.png';

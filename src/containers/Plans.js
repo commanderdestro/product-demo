@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import * as actions from '../store/actions/index';
 
-import './plans.css';
+import '../style/plans.css';
 import logo from '../images/forgeNoBorder.png';
 import owl from '../images/owl.svg';
 import money from '../images/money.svg';
