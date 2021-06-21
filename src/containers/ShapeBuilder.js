@@ -1,6 +1,7 @@
 import React from 'react';
 import smtTestData from '../data/smtTestData.json';
 import '../style/ShapeBuilder.css';
+import _ from 'lodash';
 import {
   VictoryChart,
   VictoryStack,
@@ -8,8 +9,7 @@ import {
   VictoryArea,
   VictoryScatter,
   VictoryLine,
-  Selection,
-  Point,
+  VictoryAxis
 } from 'victory';
 // import winter from '../images/winter.svg';
 // import spring from '../images/spring.svg';
@@ -54,7 +54,7 @@ const plotLine = initialPoints.map(point => {
 class ShapeBuilder extends React.Component {
   constructor() {
     super();
-    this.state = { points: initialPoints, usageLine: plotLine };
+    this.state = { points: initialPoints, usageLine: _.cloneDeep(plotLine) };
     this.onPointChange = this.updateData.bind(this);
   }
 
@@ -66,55 +66,27 @@ class ShapeBuilder extends React.Component {
 
   hoverSlide() {}
 
-  handleSlide(newPoints, event) {
-    let currPoints = [...plotLine];
-    console.log("start points: ", currPoints);
-    console.log("mod: ", event.target.value);
-    for (let i = 0; i < newPoints.length; i++) {
-      Object.assign(currPoints, plotLine[i], {y: newPoints[i].y * event.target.value});
-      // currPoints[newPoints[i]].y = plotLine[newPoints[i]].y * event.target.value;
+  handleSlide(xChange, event) {
+    let currPoints = _.cloneDeep(this.state.usageLine);
+    for (let i = 0; i < xChange.length; i++) {
+      currPoints[xChange[i]].y = plotLine[xChange[i]].y * event.target.value;
     }
-    console.log("new points: ", currPoints);
     this.setState(...this.state, { usageLine: currPoints });
   }
+
+  handleSliderHover() {}
 
   render() {
     return (
       <div>
-        <div className='topBar'>
-          {/* <div className='filterContainer'>
-            /*<div className='seasonTile greyed'>
-              <img src={winter} alt='Winter' />
-            </div>
-            <div className='seasonTile greyed'>
-              <img src={spring} alt='Spring' />
-            </div>
-            <div className='seasonTile'>
-              <img src={summer} alt='Summer' />
-            </div>
-            <div className='seasonTile greyed'>
-              <img src={fall} alt='Fall' />
-            </div>
-            <div className='day selectedLabel'>Mon</div>
-            <div className='day dayGrey'>Tue</div>
-            <div className='day dayGrey'>Wed</div>
-            <div className='day dayGrey'>Thur</div>
-            <div className='day dayGrey'>Fri</div>
-            <div className='day dayGrey'>Sat</div>
-            <div className='day dayGrey'>Sun</div>
-          </div> */}
-
-          <div className='shapeContainer'>
-            <div className='arrow'>
-              <img src={arrow} alt='arrow' />
-            </div>
-            <div className='shape greyed'>shape 2</div>
-            <div className='shape greyed'>shape 3</div>
-            <div className='shape'>Average Customer Shape</div>
+        <h1 className="display-4 text-center">Forge Profile</h1>
+          <div className='statBox'>
+            <div className='statTitle'>Profile Stats</div>
+            Market Fit: <span className='stat'>50%</span><br/>
+            Profit Score: <span className='stat'>2.5</span>
           </div>
-        </div>
-
         <VictoryChart scale={{ x: 'time' }} width={1040} height={500}>
+          <VictoryAxis tickCount={24} tickFormat={(t) => `${t.getHours()}`} />
           <VictoryStack colorScale='cool'>
             <VictoryGroup data={initialPoints}>
               <VictoryArea />
@@ -142,7 +114,7 @@ class ShapeBuilder extends React.Component {
         <div className='slidersContainer'>
           <div className='rangeContainer dark'>
             <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
-              Dark
+              Overnight
             </label>
             <input
               type='range'
@@ -163,10 +135,11 @@ class ShapeBuilder extends React.Component {
               type='range'
               className='form-range'
               id='rangeControl'
-              min='-1'
-              max='1'
+              min='0'
+              max='2'
               step='0.1'
-              defaultValue='0'
+              defaultValue='1'
+              onChange={this.handleSlide.bind(this, [7, 8, 9, 10, 11])}
             />
           </div>
           <div className='rangeContainer dark'>
@@ -177,10 +150,11 @@ class ShapeBuilder extends React.Component {
               type='range'
               className='form-range'
               id='rangeControl'
-              min='-1'
-              max='1'
+              min='0'
+              max='2'
               step='0.1'
-              defaultValue='0'
+              defaultValue='1'
+              onChange={this.handleSlide.bind(this, [12, 13, 14, 15, 16, 17, 18, 19, 20, 21])}
             />
           </div>
           <div className='rangeContainer dark'>
@@ -191,25 +165,22 @@ class ShapeBuilder extends React.Component {
               type='range'
               className='form-range'
               id='rangeControl'
-              min='-1'
-              max='1'
+              min='0'
+              max='2'
               step='0.1'
-              defaultValue='0'
+              defaultValue='1'
+              onChange={this.handleSlide.bind(this, [14, 15, 16, 17, 18, 19])}
             />
           </div>
-          <div className='rangeContainer dark'>
-            <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
-              Dark
-            </label>
-            <input
-              type='range'
-              className='form-range'
-              id='rangeControl'
-              min='-1'
-              max='1'
-              step='0.1'
-              defaultValue='0'
-            />
+        </div>
+        <div className='topBar'>
+          <div className='shapeContainer'>
+            <div className='arrow'>
+              <img src={arrow} alt='arrow' />
+            </div>
+            <div className='shape greyed'>shape 2</div>
+            <div className='shape greyed'>shape 3</div>
+            <div className='shape'>Average Customer Shape</div>
           </div>
         </div>
       </div>

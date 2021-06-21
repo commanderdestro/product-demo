@@ -10342,16 +10342,14 @@ body {
 }
 
 .slidersContainer {
-  margin: 20px;
+  margin: 0, 20px, 20px, 20px;
   display: flex;
   justify-content: center;
 }
 .slidersContainer .rangeContainer {
-  margin: 20px 20px 0 20px;
+  margin: 0 20px 0 20px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border: 1px solid gray;
   justify-content: flex-start;
   align-items: center;
   width: 15%;
@@ -10366,8 +10364,23 @@ body {
   height: 75px;
   transform: rotate(270deg);
 }
-.slidersContainer .dark {
-  margin-left: 25px;
+
+.statBox {
+  position: absolute;
+  z-index: 1000;
+  border: 2px solid #15172b;
+  border-radius: 10px;
+  color: #15172b;
+  left: 100px;
+  top: 175px;
+  padding: 10px 15px 15px 15px;
+}
+.statBox .statTitle {
+  text-align: center;
+  text-decoration: dotted;
+}
+.statBox .stat {
+  color: #FE1C41;
 }
 
 .topBar {
@@ -10436,7 +10449,6 @@ body {
   flex-direction: row-reverse;
   justify-items: right;
   align-items: right;
-  padding: 35px 25px 0 0;
 }
 
 .shape {

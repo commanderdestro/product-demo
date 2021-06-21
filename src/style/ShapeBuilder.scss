@@ -9,16 +9,15 @@ body {
 }
 
 .slidersContainer {
-  margin: 20px;
+  margin: 0, 20px, 20px, 20px;
   display: flex;
   justify-content: center;
 
   .rangeContainer {
-    margin: 20px 20px 0 20px;
+    margin: 0 20px 0 20px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border: 1px solid gray;
+    // border: 1px solid gray;
     justify-content: flex-start;
     align-items: center;
     width: 15%;
@@ -35,14 +34,28 @@ body {
       transform: rotate(270deg);
     }
   }
-
-  .dark {
-    margin-left: 25px;
-  }
-
 }
 
+.statBox{
+    position:absolute;
+    z-index:1000;
+    // background-color: $graphite;
+    border: 2px solid $graphite;
+    border-radius: 10px;
+    color: $graphite;
+    left: 100px;
+    top: 175px;
+    padding: 10px 15px 15px 15px;
+    
+    .statTitle{
+        text-align: center;
+        text-decoration: dotted;
+    }
 
+    .stat{
+        color: $forge;
+    }
+}
 
 .topBar {
   display: inline-flex;
@@ -110,7 +123,6 @@ body {
   flex-direction: row-reverse;
   justify-items: right;
   align-items: right;
-  padding: 35px 25px 0 0;
 }
 
 .shape {
