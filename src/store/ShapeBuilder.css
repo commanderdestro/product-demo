@@ -1,48 +1,6 @@
-@import '../../node_modules/bootstrap/scss/functions';
-@import 'vars';
-@import '../../node_modules/bootstrap/scss/variables';
-@import '../../node_modules/bootstrap/scss/mixins';
-@import '../../node_modules/bootstrap/scss/bootstrap';
-
 body {
   width: 100vw;
 }
-
-.slidersContainer {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-
-  .rangeContainer {
-    margin: 20px 20px 0 20px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border: 1px solid gray;
-    justify-content: flex-start;
-    align-items: center;
-    width: 15%;
-    height: 200px;
-
-    #rangeLabel {
-      color: $graphite;
-      text-align: center;
-    }
-
-    #rangeControl {
-      margin-top: 35px;
-      height: 75px;
-      transform: rotate(270deg);
-    }
-  }
-
-  .dark {
-    margin-left: 25px;
-  }
-
-}
-
-
 
 .topBar {
   display: inline-flex;
@@ -94,18 +52,16 @@ body {
   opacity: 0.3;
 }
 
-.day:hover,
-.shape:hover {
+.day:hover, .shape:hover {
   opacity: 1;
 }
 
 .selectedLabel {
-  border: 1px solid #fe1c41;
+  border: 1px solid #FE1C41;
 }
 
 .shapeContainer {
   width: 100%;
-  height: 150px;
   display: flex;
   flex-direction: row-reverse;
   justify-items: right;
@@ -127,3 +83,5 @@ body {
 .arrow {
   opacity: 0.5;
 }
+
+/*# sourceMappingURL=ShapeBuilder.css.map */

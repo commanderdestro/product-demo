@@ -11,10 +11,10 @@ import {
   Selection,
   Point,
 } from 'victory';
-import winter from '../images/winter.svg';
-import spring from '../images/spring.svg';
-import summer from '../images/summer.svg';
-import fall from '../images/fall.svg';
+// import winter from '../images/winter.svg';
+// import spring from '../images/spring.svg';
+// import summer from '../images/summer.svg';
+// import fall from '../images/fall.svg';
 import arrow from '../images/arrow.svg';
 
 const initialPoints = [
@@ -44,48 +44,17 @@ const initialPoints = [
   { x: new Date(2021, 5, 14, 23), y: 0.125 },
 ];
 
-let avgPoints = initialPoints.map(point => {
+const plotLine = initialPoints.map(point => {
   return {
     x: point.x,
     y: point.y * 1.5,
   };
 });
 
-class DraggablePoint extends React.Component {
-  static defaultEvents = [
-    {
-      target: 'data',
-      eventHandlers: {
-        onMouseDown: () => ({
-          mutation: props => Object.assign(props, { dragging: true }),
-        }),
-        onMouseMove: (evt, targetProps) => {
-          if (targetProps.dragging) {
-            const { x, y } = Selection.getSVGEventCoordinates(evt); // use Victory's selection helper
-            return {
-              mutation: props => Object.assign(props, { x, y }),
-            };
-          }
-        },
-        onMouseUp: () => ({
-          mutation: props => Object.assign(props, { dragging: false }),
-        }),
-        onMouseLeave: () => ({
-          mutation: props => Object.assign(props, { dragging: false }),
-        }),
-      },
-    },
-  ];
-
-  render() {
-    return <Point {...this.props} />;
-  }
-}
-
 class ShapeBuilder extends React.Component {
   constructor() {
     super();
-    this.state = { season: 'Summer', points: initialPoints };
+    this.state = { points: initialPoints, usageLine: plotLine };
     this.onPointChange = this.updateData.bind(this);
   }
 
@@ -95,12 +64,26 @@ class ShapeBuilder extends React.Component {
     this.setState({ points: currentPoints });
   }
 
+  hoverSlide() {}
+
+  handleSlide(newPoints, event) {
+    let currPoints = [...plotLine];
+    console.log("start points: ", currPoints);
+    console.log("mod: ", event.target.value);
+    for (let i = 0; i < newPoints.length; i++) {
+      Object.assign(currPoints, plotLine[i], {y: newPoints[i].y * event.target.value});
+      // currPoints[newPoints[i]].y = plotLine[newPoints[i]].y * event.target.value;
+    }
+    console.log("new points: ", currPoints);
+    this.setState(...this.state, { usageLine: currPoints });
+  }
+
   render() {
     return (
       <div>
         <div className='topBar'>
-          <div className='filterContainer'>
-            <div className='seasonTile greyed'>
+          {/* <div className='filterContainer'>
+            /*<div className='seasonTile greyed'>
               <img src={winter} alt='Winter' />
             </div>
             <div className='seasonTile greyed'>
@@ -119,7 +102,7 @@ class ShapeBuilder extends React.Component {
             <div className='day dayGrey'>Fri</div>
             <div className='day dayGrey'>Sat</div>
             <div className='day dayGrey'>Sun</div>
-          </div>
+          </div> */}
 
           <div className='shapeContainer'>
             <div className='arrow'>
@@ -127,9 +110,10 @@ class ShapeBuilder extends React.Component {
             </div>
             <div className='shape greyed'>shape 2</div>
             <div className='shape greyed'>shape 3</div>
-            <div className='shape'>Save Custom Shape</div>
+            <div className='shape'>Average Customer Shape</div>
           </div>
         </div>
+
         <VictoryChart scale={{ x: 'time' }} width={1040} height={500}>
           <VictoryStack colorScale='cool'>
             <VictoryGroup data={initialPoints}>
@@ -146,19 +130,88 @@ class ShapeBuilder extends React.Component {
             style={{
               data: { stroke: '#FE1C41', strokeWidth: 3 },
             }}
-            animate={{
-              duration: 3000,
-              onLoad: { duration: 3000 },
-            }}
-            data={avgPoints}
+            data={this.state.usageLine}
           />
           <VictoryScatter
             style={{ data: { fill: '#FE1C41' } }}
             size={5}
-            data={avgPoints}
+            data={this.state.usageLine}
             // dataComponent={<DraggablePoint onPointChange={this.onPointChange} />}
           />
         </VictoryChart>
+        <div className='slidersContainer'>
+          <div className='rangeContainer dark'>
+            <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
+              Dark
+            </label>
+            <input
+              type='range'
+              className='form-range'
+              id='rangeControl'
+              min='0'
+              max='2'
+              step='0.1'
+              defaultValue='1'
+              onChange={this.handleSlide.bind(this, [0, 1, 2, 3, 4, 5, 6, 23])}
+            />
+          </div>
+          <div className='rangeContainer dark'>
+            <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
+              Morning
+            </label>
+            <input
+              type='range'
+              className='form-range'
+              id='rangeControl'
+              min='-1'
+              max='1'
+              step='0.1'
+              defaultValue='0'
+            />
+          </div>
+          <div className='rangeContainer dark'>
+            <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
+              Afternoon
+            </label>
+            <input
+              type='range'
+              className='form-range'
+              id='rangeControl'
+              min='-1'
+              max='1'
+              step='0.1'
+              defaultValue='0'
+            />
+          </div>
+          <div className='rangeContainer dark'>
+            <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
+              After Work
+            </label>
+            <input
+              type='range'
+              className='form-range'
+              id='rangeControl'
+              min='-1'
+              max='1'
+              step='0.1'
+              defaultValue='0'
+            />
+          </div>
+          <div className='rangeContainer dark'>
+            <label htmlFor='rngNight' className='form-label' id='rangeLabel'>
+              Dark
+            </label>
+            <input
+              type='range'
+              className='form-range'
+              id='rangeControl'
+              min='-1'
+              max='1'
+              step='0.1'
+              defaultValue='0'
+            />
+          </div>
+        </div>
       </div>
     );
   }
