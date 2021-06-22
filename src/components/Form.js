@@ -63,7 +63,7 @@ const Form = props => {
         </div>
         <div className='legal'>
           <input type='checkbox' className='checkbox' />I agree to some super-thorough legal
-          agreement
+          agreement.
         </div>
         <button type='text' className='submit' onClick={() => props.onSubmit()}>
           submit

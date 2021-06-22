@@ -55,7 +55,7 @@ class ShapeBuilder extends React.Component {
       points: initialPoints,
       usageLine: _.cloneDeep(plotLine),
       loadedShape: 'Houston Baseline',
-      marketFit: 0.5,
+      marketFit: 0.68,
       profitScore: 2.5,
     };
     this.onPointChange = this.updateData.bind(this);
@@ -80,9 +80,55 @@ class ShapeBuilder extends React.Component {
 
   handleSliderHover() {}
 
+  handleSave() {
+    this.setState(...this.state, { loadedShape: $('#profileName').val() });
+    $('.save').toggle();
+  }
+
   render() {
     return (
       <div>
+        <div
+          class='modal fade'
+          id='modalSave'
+          tabindex='-1'
+          aria-labelledby='exampleModalLabel'
+          aria-hidden='true'
+        >
+          <div class='modal-dialog modal-sm'>
+            <div class='modal-content'>
+              <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLabel'>
+                  Save Custom Profile
+                </h5>
+                <button
+                  type='button'
+                  class='btn-close'
+                  data-bs-dismiss='modal'
+                  aria-label='Close'
+                ></button>
+              </div>
+              <div class='modal-body'>
+                Name
+                <input type='text' id='profileName' />
+              </div>
+              <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>
+                  Cancel
+                </button>
+                <button
+                  type='button'
+                  class='btn btn-secondary'
+                  data-bs-dismiss='modal'
+                  onClick={this.handleSave.bind(this)}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h1 className='display-4 text-center'>Forge Behavior Profiler</h1>
         <div className='statBox'>
           <div className='statTitle'>Behavior Profile</div>
@@ -93,9 +139,18 @@ class ShapeBuilder extends React.Component {
           Market Fit: <span className='stat'>{(this.state.marketFit * 100).toFixed(1) + '%'}</span>
           <br />
           Profit Score: <span className='stat'>{this.state.profitScore}</span>
-          <div className='avgProfile save' id='save'>
+          <button
+            type='button'
+            class='avgProfile save'
+            data-bs-toggle='modal'
+            data-bs-target='#modalSave'
+            id='save'
+          >
             Save Custom Profile
-          </div>
+          </button>
+          {/* <div className='avgProfile save' id='save'>
+            Save Custom Profile
+          </div> */}
         </div>
         <VictoryChart scale={{ x: 'time' }} width={1040} height={500}>
           <VictoryAxis tickCount={24} tickFormat={t => `${t.getHours()}`} />
@@ -123,8 +178,8 @@ class ShapeBuilder extends React.Component {
             // dataComponent={<DraggablePoint onPointChange={this.onPointChange} />}
           />
           <VictoryLegend
-            x={125}
-            y={200}
+            x={100}
+            y={240}
             title='Usage Bands'
             centerTitle
             orientation='vertical'
@@ -132,9 +187,9 @@ class ShapeBuilder extends React.Component {
             style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
             colorScale='cool'
             data={[
-              { name: 'High'},
-              { name: 'Average'},
-              { name: 'Low'},
+              { name: 'High', symbol: { fill: '#2694DB' } },
+              { name: 'Average', symbol: { fill: '#0A69D4' } },
+              { name: 'Low', symbol: { fill: '#2644B4' } },
             ]}
           />
         </VictoryChart>

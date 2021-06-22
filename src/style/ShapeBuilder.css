@@ -10341,6 +10341,14 @@ body {
   width: 100vw;
 }
 
+.modal-body {
+  text-align: center;
+}
+
+#profileName {
+  margin-left: 5px;
+}
+
 .slidersContainer {
   margin: 0, 20px, 20px, 20px;
   display: flex;
@@ -10371,8 +10379,8 @@ body {
   border: 2px solid #15172b;
   border-radius: 10px;
   color: #15172b;
-  left: 75px;
-  top: 125px;
+  left: 115px;
+  top: 100px;
   padding: 0 15px 15px 15px;
   text-align: center;
 }
@@ -10387,7 +10395,7 @@ body {
 .statBox .avgProfile {
   text-align: center;
   color: white;
-  background-color: #3a3f76;
+  background-color: #0A69D4;
   border-radius: 10px;
   margin: 15px 0 5px 0;
   padding: 0 10px 0 15px;

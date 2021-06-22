@@ -77,19 +77,19 @@ class Plans extends Component {
             <div className='costFloor'>- 0.3¢</div>
           </div>
           <div className='widget grayed'>
-            <span className='widgetTitle'>Off-Peak User</span>
+            <span className='widgetTitle'>Off-Peak</span>
             <img src={money} className='planLogo' alt='money' />
             <div className='costFloor'>- 0.3¢</div>
           </div>
           <div className='widget grayed'>
-            <span className='widgetTitle'>Peak User</span>
+            <span className='widgetTitle'>Energy Hog</span>
             <img src={thumbsDown} className='planLogo' alt='down' />
             <div className='costFloor'>+ 0.5¢</div>
           </div>
         </div>
         <div className='contentContainer'>
           <div className='header'>
-            The Night Owl plan is bundled with all the components you configured
+            The Night Owl plan is bundled with all the components you configured.
           </div>
         </div>
         <div className='widgetContainer'>
@@ -111,7 +111,7 @@ class Plans extends Component {
         </div>
         <div className='contentContainer'>
           <div className='header'>
-            Price in your target margin, or beat the market rate - whichever is higher
+            Price in your target margin, or beat the market rate - whichever is higher.
           </div>
         </div>
         <div className='widgetContainer'>
