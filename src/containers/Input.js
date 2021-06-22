@@ -14,11 +14,27 @@ class Input extends Component {
     };
   }
 
-  handleSubmit = formData => {};
+  handleSubmit = async () => {
+    this.props.toggleLoading();
+    const { data } = await axios({
+      method: 'post',
+      url: 'https://t27pk2iw56.execute-api.us-west-2.amazonaws.com/test/getsmartmeterdata',
+      data: {
+        esiid: this.props.esiid,
+        email: 'garrett.hester@gmail.com',
+        meterNo: document.getElementById('meter').value,
+        currentRepPuctNo: this.props.PUCTRORNumber,
+        reqKey: 'DunbarRocks',
+      },
+    });
+    this.props.setSMT(data.body.replace('\\', ''));
+    this.props.toggleLoading();
+    this.props.changePage('plans');
+  };
 
   handleRepInput = search => {
     document.getElementById('repSearchContainer').style.visibility = 'visible';
-    if (search.length > 2) {
+    if (search.length > 1) {
       this.props.onRepInput(search);
     } else {
       this.props.onRepInput('asdf');
@@ -60,18 +76,20 @@ class Input extends Component {
     this.props.onAddyClick(premise);
   };
 
-  handleSubmit = () => {
-      //api call
-  }
-
   render() {
-    return (
-      <div>
+    return this.props.loading ? (
+      <div className='container'>
+        <div className='spinner-grow text-primary' role='status'/>
+        <div className='spinner-grow text-primary' role='status'/>
+        <div className='spinner-grow text-primary' role='status'/>
+      </div>
+    ) : (
+      <div className='container'>
         <Form
           onClick={formData => this.handleSubmit(formData)}
           onChange={search => this.handleRepInput(search)}
           onAddressChange={search => this.handleAddressInput(search)}
-          onAddyClick={premise => this.handleAddressClick(premise)}
+          onAddyClick={(addy, esiid) => this.handleAddressClick(addy, esiid)}
           searchRep={this.props.searchRep}
           onRepClick={(rorNum, repName) => this.handleRepClick(rorNum, repName)}
           repName={this.props.repName}
@@ -88,7 +106,10 @@ const mapDispatchToProps = dispatch => {
     onRepInput: search => dispatch(actions.search_rep(search)),
     onRepClick: (rorNum, repName) => dispatch(actions.set_rorNum(rorNum, repName)),
     onAddyInput: (premise, search) => dispatch(actions.search_addy(premise, search)),
-    onAddyClick: (addy, esiid) => dispatch(actions.set_addy(addy, esiid)),
+    onAddyClick: premise => dispatch(actions.set_addy(premise)),
+    toggleLoading: () => dispatch(actions.toggle_loading()),
+    changePage: page => dispatch(actions.change_page(page)),
+    setSMT: smt => dispatch(actions.set_smt(smt)),
   };
 };
 
@@ -100,6 +121,7 @@ const mapStateToProps = state => {
     esiid: state.esiid,
     searchAddy: state.searchAddy,
     addyResults: state.addyResults,
+    loading: state.loading,
   };
 };
 

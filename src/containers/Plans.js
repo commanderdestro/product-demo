@@ -6,6 +6,7 @@ import * as actions from '../store/actions/index';
 import '../style/plans.css';
 import logo from '../images/forgeNoBorder.png';
 import owl from '../images/owl.svg';
+import wfh from '../images/wfh.svg';
 import money from '../images/money.svg';
 import mom from '../images/mom.svg';
 import verified from '../images/verified.svg';
@@ -18,6 +19,8 @@ import flag from '../images/flag.svg';
 import arrow from '../images/arrow.svg';
 import contract from '../images/contract.svg';
 import forgeLogo from '../images/forgeLogo.png';
+import forgeScore from '../images/forgeScore.png';
+import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
 
 class Plans extends Component {
   constructor(props) {
@@ -29,13 +32,26 @@ class Plans extends Component {
 
   handleMinimize = () => {
     $('.console').toggleClass('minimized');
+    if ($('.forgeElements').css('display') === 'none') {
+      $('.forgeElements').css('display', 'flex');
+    } else {
+      $('.forgeElements').css('display', 'none');
+    }
+    $('.terminalText').toggle();
   };
 
   handleLogoClick = () => {
     $('.console').toggleClass('minimized');
+    if ($('.forgeElements').css('display') === 'none') {  
+      $('.forgeElements').css('display', 'flex');
+    } else {
+      $('.forgeElements').css('display', 'none');
+    }
+    $('.terminalText').toggle();
   };
 
   render() {
+    console.log(this.props.premise);
     return (
       <div>
         <div className='contentContainer'>
@@ -45,20 +61,20 @@ class Plans extends Component {
           </div>
         </div>
         <div className='widgetContainer'>
-          <img src={logo} className='costLogo' alt='logo'/>
+          <img src={logo} className='costLogo' alt='logo' />
           <div className='costFloor'>Cost Floor: 6.1¢</div>
         </div>
         <div className='widgetContainer'>
           <div className='widget'>
-            <span className='widgetTitle'>Night Owl</span>
-            <img src={owl} className='planLogo' alt='owl' />
-            <div className='costFloor'>- 0.1¢</div>
+            <span className='widgetTitle'>Work From Home</span>
+            <img src={wfh} className='planLogo' alt='wfh' />
+            <div className='costFloor'>+ 0.3¢</div>
             <img className='verified' src={verified} alt='verified' />
           </div>
           <div className='widget grayed'>
-            <span className='widgetTitle'>Stay-at-home mom</span>
-            <img src={mom} className='planLogo' alt='mom' />
-            <div className='costFloor'>+ 0.2¢</div>
+            <span className='widgetTitle'>Night Owl</span>
+            <img src={owl} className='planLogo' alt='mom' />
+            <div className='costFloor'>- 0.3¢</div>
           </div>
           <div className='widget grayed'>
             <span className='widgetTitle'>Off-Peak User</span>
@@ -116,7 +132,7 @@ class Plans extends Component {
           <div className='widget wider'>
             <span className='widgetTitle'>Custom EFL</span>
             <img src={contract} className='planLogo' alt='contract' />
-            <div className='costFloor'>7.2¢</div>
+            <div className='costFloor'>7.6¢</div>
           </div>
         </div>
 
@@ -130,14 +146,56 @@ class Plans extends Component {
           <div className='minToggle' onClick={() => this.handleMinimize()}>
             -
           </div>
+          <div className='rawSMT'>{this.props.rawSMT}</div>
           <div className='consoleTitle'>Console</div>
           <div className='terminalText'>
-              Premise address: 10118 OLYMPIA DR, HOUSTON, TX 77042<br/>
-              ESIID: 1008901012189136992100<br/>
-              15-minute data intervals processed: 2088<br/>
-              Average customer monthly usage (trailing 12 months): 1,637kWh<br/>
-              Profile matched: Night Owl<br/>
-              Forge calculated risk price deviation from average: -0.1¢
+            Premise address: {this.props.premise.addressLn1}
+            <br />
+            ESIID: {this.props.esiid}
+            <br />
+            15-minute data intervals processed: 2088
+            <br />
+            Average customer monthly usage: 1,837kWh
+            <br />
+            Profile matched: WFH
+            <br />
+            Forge calculated risk price deviation from average: +0.3¢
+          </div>
+          <div className='forgeElements'>
+            <img src={forgeScore} className='forgeScore' alt='35' />
+            <div className='forgeGraph'>
+              <VictoryChart
+                polar
+                theme={VictoryTheme.grayscale}
+                className='forgePiece'
+                padding={25}
+              >
+                {['risk index', 'profitability', 'consumption', 'profile fit', 'peak demand'].map(
+                  (d, i) => {
+                    return (
+                      <VictoryPolarAxis
+                        dependentAxis
+                        key={i}
+                        label={d}
+                        labelPlacement='perpendicular'
+                        style={{ tickLabels: { fill: 'none' } }}
+                        axisValue={d}
+                      />
+                    );
+                  }
+                )}
+                <VictoryBar
+                  style={{ data: { fill: '#08c', width: 25 } }}
+                  data={[
+                    { x: 'risk index', y: 5 },
+                    { x: 'profitability', y: 2.5 },
+                    { x: 'consumption', y: 5 },
+                    { x: 'profile fit', y: 4.5 },
+                    { x: 'peak demand', y: 4 },
+                  ]}
+                />
+              </VictoryChart>
+            </div>
           </div>
         </div>
       </div>
@@ -159,6 +217,8 @@ const mapStateToProps = state => {
     repName: state.repName,
     esiid: state.esiid,
     searchAddy: state.searchAddy,
+    premise: state.premise,
+    rawSMT: state.rawSMT,
   };
 };
 

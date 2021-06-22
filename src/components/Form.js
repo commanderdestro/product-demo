@@ -7,7 +7,7 @@ import AddressResults from './AddressResults';
 const Form = props => {
   return (
     <div>
-      <div className='Form'>
+      <div className='form'>
         <div className='title'>Howdy</div>
            <div className='subtitle'>Let's find the plan for you!</div>
         <div className='input-container ic1'>
@@ -65,10 +65,11 @@ const Form = props => {
           <input type='checkbox' className='checkbox' />I agree to some super-thorough legal
           agreement
         </div>
-        <button type='text' className='submit' onClick={props.onSubmit}>
+        <button type='text' className='submit' onClick={() => props.onSubmit()}>
           submit
         </button>
       </div>
+      <div className='subtitle'>63057849</div>
     </div>
   );
 };

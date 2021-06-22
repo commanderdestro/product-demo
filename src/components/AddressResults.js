@@ -6,7 +6,6 @@ import '../style/style.css';
 const AddressResults = props => {
   return (
     <div id='addressSearchContainer' className='searchContainer'>
-      {console.log(props.addyResults)}
       {props.addyResults !== [] && !props.addyResults.error &&
         props.addyResults.map((premise, i) => {
           if (premise.addressLn1.toLowerCase().includes(props.searchAddy.toLowerCase())) {

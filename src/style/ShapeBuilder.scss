@@ -1,8 +1,10 @@
+@use "sass:color";
 @import '../../node_modules/bootstrap/scss/functions';
 @import 'vars';
 @import '../../node_modules/bootstrap/scss/variables';
 @import '../../node_modules/bootstrap/scss/mixins';
 @import '../../node_modules/bootstrap/scss/bootstrap';
+
 
 body {
   width: 100vw;
@@ -43,17 +45,44 @@ body {
     border: 2px solid $graphite;
     border-radius: 10px;
     color: $graphite;
-    left: 100px;
-    top: 175px;
-    padding: 10px 15px 15px 15px;
+    left: 75px;
+    top: 125px;
+    padding: 0 15px 15px 15px;
+    text-align: center;
     
     .statTitle{
         text-align: center;
-        text-decoration: dotted;
+        padding: 3px;
+        background-color: $graphite;
+        margin: 0 -15px 0 -15px;
+        border-radius: 7px 7px 0 0;
+        color: white;
+    }
+
+    .avgProfile{
+        text-align: center;
+        color: white;
+        background-color: color.scale($graphite, $lightness: 25%);
+        border-radius: 10px;
+        margin: 15px 0 5px 0;
+        padding: 0 10px 0 15px;
+
+        .arrow{
+            height: 15px;
+            width: 15px;
+            margin: 4px 0px 4px 10px;
+            float: right;
+        }
     }
 
     .stat{
         color: $forge;
+    }
+
+    .save{
+        background-color: gray;
+        display:none;
+        // visibility: hidden;
     }
 }
 

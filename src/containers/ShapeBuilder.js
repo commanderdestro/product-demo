@@ -1,7 +1,7 @@
 import React from 'react';
-import smtTestData from '../data/smtTestData.json';
 import '../style/ShapeBuilder.css';
 import _ from 'lodash';
+import $ from 'jquery';
 import {
   VictoryChart,
   VictoryStack,
@@ -9,13 +9,10 @@ import {
   VictoryArea,
   VictoryScatter,
   VictoryLine,
-  VictoryAxis
+  VictoryAxis,
+  VictoryLegend,
 } from 'victory';
-// import winter from '../images/winter.svg';
-// import spring from '../images/spring.svg';
-// import summer from '../images/summer.svg';
-// import fall from '../images/fall.svg';
-import arrow from '../images/arrow.svg';
+import arrowWhite from '../images/arrowWhite.svg';
 
 const initialPoints = [
   { x: new Date(2021, 5, 14, 0), y: 0.125 },
@@ -54,7 +51,13 @@ const plotLine = initialPoints.map(point => {
 class ShapeBuilder extends React.Component {
   constructor() {
     super();
-    this.state = { points: initialPoints, usageLine: _.cloneDeep(plotLine) };
+    this.state = {
+      points: initialPoints,
+      usageLine: _.cloneDeep(plotLine),
+      loadedShape: 'Houston Baseline',
+      marketFit: 0.5,
+      profitScore: 2.5,
+    };
     this.onPointChange = this.updateData.bind(this);
   }
 
@@ -72,6 +75,7 @@ class ShapeBuilder extends React.Component {
       currPoints[xChange[i]].y = plotLine[xChange[i]].y * event.target.value;
     }
     this.setState(...this.state, { usageLine: currPoints });
+    $('.save').toggle(true); //{duration: 400, queue: false, });
   }
 
   handleSliderHover() {}
@@ -79,14 +83,22 @@ class ShapeBuilder extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="display-4 text-center">Forge Profile</h1>
-          <div className='statBox'>
-            <div className='statTitle'>Profile Stats</div>
-            Market Fit: <span className='stat'>50%</span><br/>
-            Profit Score: <span className='stat'>2.5</span>
+        <h1 className='display-4 text-center'>Forge Behavior Profiler</h1>
+        <div className='statBox'>
+          <div className='statTitle'>Behavior Profile</div>
+          <div className='avgProfile'>
+            {this.state.loadedShape}
+            <img src={arrowWhite} className='arrow' alt='next' />
           </div>
+          Market Fit: <span className='stat'>{(this.state.marketFit * 100).toFixed(1) + '%'}</span>
+          <br />
+          Profit Score: <span className='stat'>{this.state.profitScore}</span>
+          <div className='avgProfile save' id='save'>
+            Save Custom Profile
+          </div>
+        </div>
         <VictoryChart scale={{ x: 'time' }} width={1040} height={500}>
-          <VictoryAxis tickCount={24} tickFormat={(t) => `${t.getHours()}`} />
+          <VictoryAxis tickCount={24} tickFormat={t => `${t.getHours()}`} />
           <VictoryStack colorScale='cool'>
             <VictoryGroup data={initialPoints}>
               <VictoryArea />
@@ -109,6 +121,21 @@ class ShapeBuilder extends React.Component {
             size={5}
             data={this.state.usageLine}
             // dataComponent={<DraggablePoint onPointChange={this.onPointChange} />}
+          />
+          <VictoryLegend
+            x={125}
+            y={200}
+            title='Usage Bands'
+            centerTitle
+            orientation='vertical'
+            gutter={20}
+            style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
+            colorScale='cool'
+            data={[
+              { name: 'High'},
+              { name: 'Average'},
+              { name: 'Low'},
+            ]}
           />
         </VictoryChart>
         <div className='slidersContainer'>
@@ -171,16 +198,6 @@ class ShapeBuilder extends React.Component {
               defaultValue='1'
               onChange={this.handleSlide.bind(this, [14, 15, 16, 17, 18, 19])}
             />
-          </div>
-        </div>
-        <div className='topBar'>
-          <div className='shapeContainer'>
-            <div className='arrow'>
-              <img src={arrow} alt='arrow' />
-            </div>
-            <div className='shape greyed'>shape 2</div>
-            <div className='shape greyed'>shape 3</div>
-            <div className='shape'>Average Customer Shape</div>
           </div>
         </div>
       </div>

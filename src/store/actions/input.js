@@ -1,3 +1,4 @@
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import * as actionTypes from './actionTypes';
 
 export const search_rep = search => {
@@ -28,4 +29,24 @@ export const set_rorNum = (rorNum, repName) => {
         PUCTRORNumber: rorNum,
         repName: repName
     }
+};
+
+export const toggle_loading = () => {
+    return{
+        type: actionTypes.TOGGLE_LOADING,
+    };
+};
+
+export const change_page = (page) => {
+    return{
+        type: actionTypes.CHANGE_PAGE,
+        page: page,
+    };
+};
+
+export const set_smt = (smt) => {
+    return{
+        type: actionTypes.SET_SMT,
+        rawSMT: smt,
+    };
 };

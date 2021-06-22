@@ -10371,16 +10371,39 @@ body {
   border: 2px solid #15172b;
   border-radius: 10px;
   color: #15172b;
-  left: 100px;
-  top: 175px;
-  padding: 10px 15px 15px 15px;
+  left: 75px;
+  top: 125px;
+  padding: 0 15px 15px 15px;
+  text-align: center;
 }
 .statBox .statTitle {
   text-align: center;
-  text-decoration: dotted;
+  padding: 3px;
+  background-color: #15172b;
+  margin: 0 -15px 0 -15px;
+  border-radius: 7px 7px 0 0;
+  color: white;
+}
+.statBox .avgProfile {
+  text-align: center;
+  color: white;
+  background-color: #3a3f76;
+  border-radius: 10px;
+  margin: 15px 0 5px 0;
+  padding: 0 10px 0 15px;
+}
+.statBox .avgProfile .arrow {
+  height: 15px;
+  width: 15px;
+  margin: 4px 0px 4px 10px;
+  float: right;
 }
 .statBox .stat {
   color: #FE1C41;
+}
+.statBox .save {
+  background-color: gray;
+  display: none;
 }
 
 .topBar {
